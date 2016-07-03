@@ -1,0 +1,36 @@
+.button-green{
+    background-color: green;
+    font-weight: bold;
+    padding: 7px 7px 7px 7px;
+    color: white;
+}
+.button-orange{
+    background-color: orange;
+    font-weight: bold;
+    padding: 7px 7px 7px 7px;
+}
+.button-blue{
+    background-color: blue;
+    font-weight: bold;
+    padding: 7px 7px 7px 7px;
+}
+.button-red{
+    background-color: red;
+    font-weight: bold;
+    padding: 7px 7px 7px 7px;
+}
+table{
+    width: 100%;
+}
+span.require{
+    color: red;
+    font-weight: bolder;
+}
+form table tbody tr td:first-child{
+    text-align: right;
+    font-weight: bold;
+}
+td>img{
+    max-height: 200px;
+    max-width: 200px;
+}
