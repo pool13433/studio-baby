@@ -5,6 +5,8 @@ $sql = "SELECT `pac_id`, `pac_name`, `pac_image`, `pac_createdate`
         ,(SELECT count(*) FROM package_set WHERE pac_id = p.pac_id) as count_item
         FROM package p ORDER BY pac_name ASC";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn) . ' sql ::==' . $sql);
+$cnt = mysqli_num_rows($result);
+var_dump($cnt);
 $index = 1;
 $default_column = 3;
 $datas_record = array();
@@ -17,6 +19,9 @@ while ($row = mysqli_fetch_array($result)) {
         $index = 0;
     }
     $index++;
+}
+if (count($data_column) > 0) {
+    $datas_record[] = $data_column;
 }
 ?>
 <tr>
@@ -36,12 +41,12 @@ while ($row = mysqli_fetch_array($result)) {
                                         <tbody>
                                             <tr>
                                                 <td colspan="2">
-                                                    <img src="<?=$column['pac_image']?>"/>
+                                                    <img src="<?= $column['pac_image'] ?>" style="width: 100%;"/>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td><?=$column['pac_name']?> [มี <?=$column['count_item']?> ชุด]</td>
-                                                <td><a href="product_package_set.php?id=<?=$column['pac_id']?>&name=<?=$column['pac_name']?>">ชุดแพ๊กเก็ต</a></td>
+                                                <td><?= $column['pac_name'] ?> [มี <?= $column['count_item'] ?> ชุด]</td>
+                                                <td><a href="product_package_set.php?id=<?= $column['pac_id'] ?>&name=<?= $column['pac_name'] ?>">ชุดแพ๊กเก็ต</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

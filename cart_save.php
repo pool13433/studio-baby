@@ -2,6 +2,13 @@
 
 session_start();
 include './db/connect_db.php';
+
+if (empty($_SESSION['person'])) {
+    echo 'คุณยังไม่ได้ Login เข้าใช้งานระบบ กรุณา Login เข้าใช้งานระบบ หรือ ลงทะเบียน เพื่อขอเข้าใช้งานระบบ ก่อน';
+    echo '<meta http-equiv="refresh" content="1; URL=\'cart_confirm.php?total_price='.$_POST['total_price'].'\'" />';
+    exit();
+}
+
 if (!empty($_POST)) {
     $person = $_SESSION['person'];
     $order_code = date('Ymd_Hms');
@@ -43,7 +50,7 @@ if (!empty($_POST)) {
                     ";
             $execute = mysqli_query($conn, $sql) or die(mysqli_error($conn) . 'sql :==' . $sql);
         }
-        
+
         /*
          * Insert Location To Reserve Location
          */

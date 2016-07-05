@@ -24,7 +24,7 @@ if (!empty($_GET['id'])) {
     <td style="vertical-align: text-top">
         <fieldset>
             <legend><a href="person_manage.php"><img src="image/icon/32x32-previos-icon.png"/></a>ฟอร์มจัดการผู้ใช้งาน</legend>
-            <form action="person_save.php" method="post">
+            <form action="person_save.php" method="post" name="person">
                 <table border="1">
                     <tbody>
                         <tr>
@@ -36,7 +36,7 @@ if (!empty($_GET['id'])) {
                         </tr>
                         <tr>
                             <td>password</td>
-                            <td><input type="password" name="password" value="<?= $password ?>" required/><span class="require">*</span></td>
+                            <td><input type="password" name="password" value="<?= $password ?>" minlength="8" required/><span class="require">*</span></td>
                         </tr>
                         <tr>
                             <td>คำนำหน้าชื่อ</td>
@@ -71,7 +71,7 @@ if (!empty($_GET['id'])) {
                         </tr>
                         <tr>
                             <td>รหัสบัตร</td>
-                            <td><input type="text" name="idcard" value="<?= $idcard ?>" required/><span class="require">*</span></td>
+                            <td><input type="text" name="idcard" value="<?= $idcard ?>" maxlength="13" minlength="13" required/><span class="require">*</span></td>
                         </tr>
                         <tr>
                             <td>อีเมลล์</td>
@@ -79,7 +79,7 @@ if (!empty($_GET['id'])) {
                         </tr>
                         <tr>
                             <td>โทร</td>
-                            <td><input type="text" name="mobile" maxlength="10" value="<?= $mobile ?>" required/><span class="require">*</span></td>
+                            <td><input type="text" name="mobile" maxlength="10" minlength="10" value="<?= $mobile ?>" required/><span class="require">*</span></td>
                         </tr>
                         <tr>
                             <td>ที่อยู่</td>
@@ -97,3 +97,29 @@ if (!empty($_GET['id'])) {
     </td>
 </tr>
 <?php include './inc_footer.php'; ?>
+<script type="text/javascript">
+    $(function () {
+        $('form[name="person"]').submit(function () {
+            var password = $(this).find('input[name="password"]').val();
+            var idcard = $(this).find('input[name="idcard"]').val();
+            var mobile = $(this).find('input[name="mobile"]').val();
+            if (password.length < 8) {
+                alert('กรุณากรอกข้อมูล password 8 ตัวอักษรขึ้นไปเท่านั้น');
+                return false;
+            }
+            if (idcard.length == 13) {
+                alert('กรุณากรอกข้อมูล รหัสบัตร  13 ตัวอักษรเท่านั้น');
+                return false;
+            }
+            if (mobile.length == 10) {
+                alert('กรุณากรอกข้อมูลเบอร์โทร  10 ตัวอักษรเท่านั้น');
+                return false;
+            }
+            if (confirm('ยืนยันการบันทึกผู้ใช้งาน')) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    });
+</script>

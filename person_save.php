@@ -33,7 +33,7 @@ if (!empty($_POST)) {
                 ";
     }
 
-    $execute = mysqli_query($conn, $sql) or die(mysqli_error($conn).' sql :=='.$sql);
+    $execute = mysqli_query($conn, $sql) or die(mysqli_error($conn) . ' sql :==' . $sql);
     mysqli_close($conn);
     if ($execute) {
         echo 'บันทึก ผู็ใช้งาน สำเร็จ';
@@ -45,3 +45,4 @@ if (!empty($_POST)) {
         exit();
     }
 }
+

@@ -1,5 +1,5 @@
 <?php include './inc_header.php'; ?>
-<?php include './db/connect_db.php';?>
+<?php include './db/connect_db.php'; ?>
 <tr>
     <td style="width:20%;vertical-align: text-top"><?php include './inc_menuleft.php'; ?></td>
     <td style="vertical-align: text-top">
@@ -10,14 +10,8 @@
                     <tbody>
                         <tr>
                             <td>ราคารวม</td>
-                            <td><input type="text"  name="total_price" required value="<?= $_GET['total_price'] ?>"/></td>
-                        </tr>
-                        <tr>
-                            <td>จำนวนเงินมัดจำ</td>
-                            <td>
-                                <input type="number"  name="total_deposit" required/>
-                            </td>
-                        </tr>
+                            <td><input type="text"  name="total_price" required value="<?= $_GET['total_price'] ?>" readonly/></td>
+                        </tr>                        
                         <tr>
                             <td style="width: 25%">เลือกวันที่ เวลาที่ใช้งานถ่ายภาพ</td>
                             <td>
@@ -26,7 +20,7 @@
                                 </label>    
                                 <label>   ช่วงเวลาที่ใช้งาน <input type="times" class="time" name="use_time1" required/></label>
                                 <label> ถึง <input type="times" class="time" name="use_time2" required/></label>
-                                
+
                             </td>
                         </tr>
                         <tr>
@@ -46,8 +40,20 @@
                                 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn) . ' sql ::==' . $sql);
                                 ?>
                                 <?php while ($row = mysqli_fetch_array($result)) { ?>
-                                    <label><input type="checkbox" name="location[]" value="<?= $row['loc_id'] ?>"/>[<?= $row['loc_name'].'  '.$row['loc_price']?>]</label>
+                                    <label><input type="checkbox" name="location[]" value="<?= $row['loc_id'] ?>" id="<?= $row['loc_price'] ?>"/>[<?= $row['loc_name'] . '  ' . $row['loc_price'] ?>]</label>
                                 <?php } ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>ราคารวมทั้งหมด</td>
+                            <td>
+                                <input type="number"  name="total_money" required value="<?= $_GET['total_price'] ?>" readonly/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>จำนวนเงินมัดจำ</td>
+                            <td>
+                                <input type="number"  name="total_deposit" required/>
                             </td>
                         </tr>
                         <tr>
@@ -55,6 +61,7 @@
                             <td><button type="submit" class="button-green" onclick="return confirm('ยืนยันการสั่งจอง')">ยืนยันการจอง</button>
                                 <button type="reset" class="button-orange">ล้างฟอร์ม</button></td>
                         </tr>
+                        
                     </tbody>
                 </table>
             </form>
@@ -63,3 +70,20 @@
     </td>
 </tr>
 <?php include './inc_footer.php'; ?>
+<script type="text/javascript">
+    var total_price = $('input[name="total_money"]').val();
+    $(function () {
+        $('input[type="checkbox"]').on('click', function () {
+            var isCheck = $(this).prop('checked');
+            console.log('isCheck ::==' + isCheck);
+            var price = $(this).prop('id');
+            console.log('price ::==' + price);
+            if (isCheck) {
+                total_price = parseInt(total_price) + parseInt(price);
+            } else {
+                total_price = parseInt(total_price) - parseInt(price);
+            }
+            $('input[name="total_money"]').val(total_price);
+        });
+    })
+</script>

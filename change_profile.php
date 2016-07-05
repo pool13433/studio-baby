@@ -1,12 +1,12 @@
 <?php include './inc_header.php'; ?>
 <?php include './db/connect_db.php'; ?>
-<?php $person = $_SESSION['person'];?>
+<?php $person = $_SESSION['person']; ?>
 <tr>
     <td style="width:20%;vertical-align: text-top"><?php include './inc_menuleft.php'; ?></td>
     <td style="vertical-align: text-top">
         <fieldset>
             <legend><a href="index.php"><img src="image/icon/32x32-previos-icon.png"/></a>แก้ไขข้อมูลผู้ใช้งาน</legend>
-            <form action="change_profile_save.php" method="post">
+            <form action="change_profile_save.php" method="post" name="profile">
                 <table border="1">
                     <tbody>
                         <tr>
@@ -43,7 +43,7 @@
                         </tr>
                         <tr>
                             <td>รหัสบัตร</td>
-                            <td><input type="text" name="idcard" value="<?= $person->pers_idcard ?>"  required/><span class="require">*</span></td>
+                            <td><input type="text" name="idcard" value="<?= $person->pers_idcard ?>" maxlength="13" minlength="13" required/><span class="require">*</span></td>
                         </tr>
                         <tr>
                             <td>อีเมลล์</td>
@@ -51,7 +51,7 @@
                         </tr>
                         <tr>
                             <td>โทร</td>
-                            <td><input type="text" name="mobile" maxlength="10" value="<?= $person->pers_phone ?>"  required/><span class="require">*</span></td>
+                            <td><input type="text" name="mobile" maxlength="10" minlength="10" value="<?= $person->pers_phone ?>"  required/><span class="require">*</span></td>
                         </tr>
                         <tr>
                             <td>ที่อยู่</td>
@@ -69,3 +69,25 @@
     </td>
 </tr>
 <?php include './inc_footer.php'; ?>
+<script type="text/javascript">
+    $(function () {
+        $('form[name="profile"]').submit(function () {
+            var password = $(this).find('input[name="password"]').val();
+            var idcard = $(this).find('input[name="idcard"]').val();
+            var mobile = $(this).find('input[name="mobile"]').val();
+            if (password.length < 8) {
+                alert('กรุณากรอกข้อมูล password 8 ตัวอักษรขึ้นไปเท่านั้น');
+                return false;
+            }
+            if (idcard.length < 13) {
+                alert('กรุณากรอกข้อมูล รหัสบัตร  13 ตัวอักษรเท่านั้น');
+                return false;
+            }
+            if (mobile.length < 10) {
+                alert('กรุณากรอกข้อมูลเบอร์โทร  10 ตัวอักษรเท่านั้น');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>

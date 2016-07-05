@@ -59,7 +59,7 @@
                                         }
                                         ?>
                                         <a href="change_profile.php">แก้ไขข้อมูลส่วนตัว</a>
-                                        <a href="change_password.php">แก้ไขรหัสผ่าน</a>
+                                        <a href="change_password.php">เปลี่ยนรหัสผ่าน</a>
                                         <a href="logout.php" onclick="return confirm('ยืนยันการออกจากระบบ')">ออกจากระบบ</a>
                                     </label>
                                 </p>

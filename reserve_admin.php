@@ -126,7 +126,11 @@
                     </thead>
                     <tbody>
                         <?php while ($row = mysqli_fetch_array($result)) { ?><tr>
-                                <td><?= $row['order_code'] ?></td>
+                                <td>
+                                    <?= $row['order_code'] ?><br/>
+                                    <a href="rpt_pdf_invoice.php?id=<?= $row['order_id'] ?>" target="_blank"><img src="image/icon/32x32-save-icon.png"/></a>
+                                    <a href="reserve_delete.php?id=<?= $row['order_id'] ?>" onclick="return confirm('ยืนยันการลบข้อมูล ใบสั่งจองนี้ ใช่หรือไม่')"><img src="image/icon/32x32-delete-icon.png"/></a>
+                                </td>
                                 <td><?= $row['customer_name'] ?></td>
                                 <td><?= $row['order_date'] ?></td>
                                 <td><?= $row['order_time_begin'] . ' - ' . $row['order_time_end'] ?></td>
@@ -141,7 +145,8 @@
                                         echo '<a href="reserve_pay.php?id=' . $row['order_id'] . '&code=' . $row['order_code'] . '">ยืนยันการจ่ายเงิน</a><br/>';
                                         echo '<a href="reserve_cancel.php?id=' . $row['order_id'] . '" onclick="return confirm(\'ยืนยันการยกเลิกการสั่งจอง\')">ยกเลิกการจอง</a>';
                                         break;
-                                    case 1: echo '<td style="background-color:green">จ่ายแล้ว';
+                                    case 1: echo '<td style="background-color:green">จ่ายแล้ว <br/>';
+                                        echo '<a href="reserve_admin_pay_detail.php?id=' . $row['order_id'] . '" style="color:white">ดูรายละเอียดการจ่ายเงิน</a>';
                                         break;
                                     case 2: echo '<td style="background-color:red">ยกเลิกสถานะการจอง';
                                         break;

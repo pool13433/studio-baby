@@ -19,9 +19,9 @@ if (!empty($_POST)) {
         }
     }
 
-    $sql = "  INSERT INTO payment (`bank_id`, `order_id`, `pay_date`, `pay_time`, `pay_file`, `pay_comment`, `pay_createdate`)
+    $sql = "  INSERT INTO payment (`bank_id`, `order_id`,pay_money,`pay_date`, `pay_time`, `pay_file`, `pay_comment`, `pay_createdate`)
             VALUES 
-            ($pay_bank,$pay_id,STR_TO_DATE('$pay_date','%Y-%m-%d'),'$pay_time','$file','$pay_comment',NOW())
+            ($pay_bank,$pay_id,$pay_money,STR_TO_DATE('$pay_date','%Y-%m-%d'),'$pay_time','$file','$pay_comment',NOW())
             ";
     $execute = mysqli_query($conn, $sql) or die(mysqli_error($conn) . ' sql :==' . $sql);
     if ($execute) {
